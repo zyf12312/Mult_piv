@@ -1,6 +1,5 @@
 # 单像素互相关，近壁，原点783像素点
 # -*- coding:utf-8 -*-
-import skimage.io as io
 import numpy as np
 import time
 from PIL import Image
