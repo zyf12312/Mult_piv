@@ -1,32 +1,26 @@
 #  此程序求取二维PIV平均速度场
 import numpy as np
 import os
-
-nu = 6
-NN = 8215
-
-scale = 3.75
-N = NN * nu
-m = 399
-n = 65
+from Read_Parameter import read_p
+if __name__ == "__main__":
+    read_p
 path_data = "L:\\M_C\\1p\\"
 para_metre = path_data + 'parameter.txt'
-f = open(para_metre, 'r')
-line1 = f.readline()
-sdy = line1.split("=")
-mul = float(sdy[1])
-line1 = f.readline()
-sdy = line1.split("=")
-dyn = int(sdy[1])
-line1 = f.readline()
-sdy = line1.split("=")
-ps = int(sdy[1])
-line1 = f.readline()
-sdy = line1.split("=")
-pe = int(sdy[1])
-f.close()
+p_n = 8
+bu = read_p(para_metre, p_n)
+mul = float(bu[0])         # coefficient of kinematic viscosity
+dyn = int(bu[1])           # Deviance from zero to real wall coordinate
+ps = int(bu[2])            # first point in log law region
+pe = int(bu[3])            # last point in log law region
+NN = int(bu[4])            # number of samples
+m = int(bu[5])             # number of stream-wise points
+n = int(bu[6])             # number of wall-normal points
+scale = float(bu[7])       # amplification coefficient
+
 dy = -0.075*dyn
 
+nu = 6
+N = NN * nu
 path_data1 = path_data + "data\\"
 path_result = path_data + "Result\\"
 path_mean = path_result + 'Velocity_mean.dat'
@@ -57,3 +51,4 @@ for a in range(len(m_v)):
     f.write('\n')
 
 f.close()
+

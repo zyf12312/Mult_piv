@@ -2,26 +2,24 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
+from Read_Parameter import read_p
+if __name__ == "__main__":
+    read_p
+path_data = "L:\\M_C\\1p\\"
+para_metre = path_data + 'parameter.txt'
+p_n = 8
+bu = read_p(para_metre, p_n)
+mul = float(bu[0])         # coefficient of kinematic viscosity
+dyn = int(bu[1])           # Deviance from zero to real wall coordinate
+ps = int(bu[2])            # first point in log law region
+pe = int(bu[3])            # last point in log law region
+NN = int(bu[4])            # number of samples
+m = int(bu[5])             # number of stream-wise points
+n = int(bu[6])             # number of wall-normal points
+scale = float(bu[7])       # amplification coefficient
 
-m = 399
-n = 65
 a = 0.41
 b = 5.0
-path_data = "L:\\M_C\\4p\\"
-
-para_metre = path_data + 'parameter.txt'
-f = open(para_metre, 'r')
-line1 = f.readline()
-sdy = line1.split("=")
-mul = float(sdy[1])
-skip = f.readline()
-line1 = f.readline()
-sdy = line1.split("=")
-ps = int(sdy[1])
-line1 = f.readline()
-sdy = line1.split("=")
-pe = int(sdy[1])
-f.close()
 
 path_data1 = path_data + "data\\"
 path_result = path_data + "Result\\Statistic\\"
@@ -32,7 +30,7 @@ mean_velocity = np.loadtxt(path_mean, dtype='float', skiprows=2)
 meany = mean_velocity[:, 1].reshape(m, n, order='F')
 u = mean_velocity[:, 2].reshape(m, n, order='F')
 y = meany[1, :] / 1000
-um = np.mean(u[5:m - 5][:], 0)
+um = np.mean(u[5:m - 5, :], 0)
 uq = um.max()
 
 

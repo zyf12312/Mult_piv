@@ -2,18 +2,27 @@
 import numpy as np
 import os
 import time
-
-nu = 2
-NN = 8215
-scale = 3.75
+from Read_Parameter import read_p
+if __name__ == "__main__":
+    read_p
+path_data = "L:\\M_C\\1p\\"
+para_metre = path_data + 'parameter.txt'
+p_n = 8
+bu = read_p(para_metre, p_n)
+mul = float(bu[0])         # coefficient of kinematic viscosity
+dyn = int(bu[1])           # Deviance from zero to real wall coordinate
+ps = int(bu[2])            # first point in log law region
+pe = int(bu[3])            # last point in log law region
+NN = int(bu[4])            # number of samples
+m = int(bu[5])             # number of stream-wise points
+n = int(bu[6])             # number of wall-normal points
+scale = float(bu[7])       # amplification coefficient
+nu = 6
 N = NN * nu
-m = 399
-n = 65
 fmat = '{}d'.format(m*n)
 s = m*n
 fu = np.zeros(s)
 fv = np.zeros(s)
-path_data = "L:\\M_C\\1p\\"
 path_data1 = path_data + "data\\"
 path_result = path_data + "Result\\"
 path_Sta = path_result + 'Statistic\\'
